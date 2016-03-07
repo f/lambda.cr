@@ -15,11 +15,11 @@ end
   x + y + z
 end
 
-lambda plus do |x__Int32, y__Int32|
+lambda plus do |x_as_Int32, y_as_Int32|
   x + y
 end
 
-lambda plus do |x__String, y__String|
+lambda plus do |x_as_String, y_as_String|
   x + " and " + y
 end
 

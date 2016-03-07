@@ -79,14 +79,14 @@ result = add(2, 3).add(4).add(5) #=> 2 + 3 + 4 + 5 = 14
 
 ## Types and Lambda Overloading
 
-You can define types in parameters using `param__Type` pattern.
+You can define types in parameters using `param_as_Type` pattern.
 
 ```crystal
-λ plus do |x__Int32, y__Int32|
+λ plus do |x_as_Int32, y_as_Int32|
   x + y
 end
 
-λ plus do |first__String, second__String|
+λ plus do |first_as_String, second_as_String|
   x + " and " + y
 end
 

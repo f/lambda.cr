@@ -5,7 +5,7 @@ macro λ(name, &block)
     raise "Uniformed functions have to have at least one parameter."
   {% end %}
 
-  {% args = block.args.join(", ").gsub(/__/, " : ") %}
+  {% args = block.args.join(", ").gsub(/_as_/, " : ") %}
 
   {% if block.args.size > 1 %}
     {% args = args.gsub(/^[^\,]*\,/, "") %}
@@ -15,11 +15,11 @@ macro λ(name, &block)
 
   class Object
     def {{name.id}}({{args.id}})
-      {{block.args.first.id.split("__")[0].id}} = self
+      {{block.args.first.id.split("_as_")[0].id}} = self
       {{block.body}}
     end
   end
-  def {{name.id}}({{block.args.first.id.gsub(/__/, " : ")}},{{args.id}})
+  def {{name.id}}({{block.args.first.id.gsub(/_as_/, " : ")}},{{args.id}})
     {{block.body}}
   end
 end
