@@ -1,2 +1,2 @@
 require "spec"
-require "../src/ufcs"
+require "../src/lambda"

@@ -1,5 +1,33 @@
-# UFCS.cr
-DLang's [Uniform Function Call Syntax (UFCS)][1] port to Crystal Language
+# λ.cr
+
+Lambda makes your Crystal functions [uniformed][1].
+
+```crystal
+# Lambda your expression.
+λ add do |x, y|
+  x + y
+end
+
+# Use it like a method or a function
+puts 2.add 3
+puts add 2, 3
+```
+
+Or more expressive example:
+
+```crystal
+# just define a lambda
+lambda not do |x| !x end
+
+# ... and use as you wish
+true.not #=> false
+true.not.not #=> true
+false.not #=> true
+
+not false #=> true
+not not true #=> true
+not true #=> false
+```
 
 ## Installation
 
@@ -7,8 +35,8 @@ Add this to your application's `shard.yml`:
 
 ```yaml
 dependencies:
-  ufcs:
-    github: f/ufcs.cr
+  lambda:
+    github: f/lambda.cr
 ```
 
 ## Overview
@@ -17,7 +45,7 @@ A free function can be called with a syntax that looks as if the function were a
 
 Idea is simple, result is awesome.
 ```crystal
-# With UFCS, you can call this function ...
+# With lambda, you can call this function ...
 my_function first_param, second_param, other_param
 
 # ... like this.
@@ -27,14 +55,14 @@ first_param.my_function x, y, z
 ## Usage
 
 ```crystal
-require "ufcs"
+require "lambda"
 ```
 
-Just use `udef_struct` or `udef_class` to make the thing uniform.
+Just use `λ` to make the thing uniform.
 
 ```crystal
-udef_struct add, Int32 do |x|
-  this + x
+λ add do |x, y|
+  x + y
 end
 
 result = add(2, 3) #=> 5
@@ -52,12 +80,25 @@ result = add(2, 3).add(4).add(5) #=> 2 + 3 + 4 + 5 = 14
 ## Examples
 
 ```crystal
-udef_struct add, Int32 {|x| this + x}
-udef_struct remove, Int32 {|x| this - x}
-udef_struct multiply, Int32 {|x| this * x}
-udef_struct divide, Int32 {|x| this / x}
+λ add {|x, y| x + y}
+λ remove {|x| x - y}
+λ multiply {|x, y| x * y}
+λ divide {|x| x / y}
 
 2.add(3).multiply(6).divide(2).remove(3).add(5).divide(5) #=> 3,  It's ((((2 + 3) * 6) / 2) - 3 + 5) / 5
+```
+
+## WTF is `λ`?!
+
+It's the [lambda](https://en.wikipedia.org/wiki/Lambda) character. If you don't want to use it, you can simply use `lambda` alias.
+
+```crystal
+lambda add do |x, y|
+  x + y
+end
+
+result = add(2, 3) #=> 5
+result = 2.add(3) #=> 5
 ```
 
 ## Contributing
