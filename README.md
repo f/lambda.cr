@@ -77,6 +77,26 @@ Since you patch the struct or class you can chain easily.
 result = add(2, 3).add(4).add(5) #=> 2 + 3 + 4 + 5 = 14
 ```
 
+## Types and Lambda Overloading
+
+You can define types in parameters using `param__Type` pattern.
+
+```crystal
+λ plus do |x__Int32, y__Int32|
+  x + y
+end
+
+λ plus do |first__String, second__String|
+  x + " and " + y
+end
+
+2.plus 2 #=> 4
+"fatih".plus "akin" #=> "fatih and akin"
+
+plus 2, 2 #=> 4
+plus "fatih", "akin" #=> "fatih and akin"
+```
+
 ## Examples
 
 ```crystal

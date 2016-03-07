@@ -15,6 +15,14 @@ end
   x + y + z
 end
 
+lambda plus do |x__Int32, y__Int32|
+  x + y
+end
+
+lambda plus do |x__String, y__String|
+  x + " and " + y
+end
+
 describe Lambda do
   it "works" do
     x = "hello".world
@@ -25,6 +33,19 @@ describe Lambda do
     true.otherwise.otherwise.should eq(true)
 
     (otherwise otherwise true).should eq(true)
+  end
+
+  it "works with types" do
+    x = plus 2, 2
+    y = 2.plus 2
+    x.should eq(4)
+    x.should eq(y)
+
+    x = plus "fatih", "akin"
+    y = "fatih".plus "akin"
+
+    x.should eq("fatih and akin")
+    x.should eq(y)
   end
 
   it "works with multiple params" do

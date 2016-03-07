@@ -4,19 +4,22 @@ macro λ(name, &block)
   {% if block.args.size == 0 %}
     raise "Uniformed functions have to have at least one parameter."
   {% end %}
-  {{args = block.args.join(",")}}
+
+  {% args = block.args.join(", ").gsub(/__/, " : ") %}
+
   {% if block.args.size > 1 %}
-    {{args = args.gsub(/^[^\,]\,/, "")}}
+    {% args = args.gsub(/^[^\,]*\,/, "") %}
   {% else %}
-    {{args = ""}}
+    {% args = "" %}
   {% end %}
+
   class Object
     def {{name.id}}({{args.id}})
-      {{block.args.first.id}} = self
+      {{block.args.first.id.split("__")[0].id}} = self
       {{block.body}}
     end
   end
-  def {{name.id}}({{block.args.first.id}},{{args.id}})
+  def {{name.id}}({{block.args.first.id.gsub(/__/, " : ")}},{{args.id}})
     {{block.body}}
   end
 end
