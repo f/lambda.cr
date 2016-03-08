@@ -2,6 +2,9 @@
 
 Lambda makes your Crystal functions [uniformed][1].
 
+> **It's an experiment and we do *not* recommend using it.**
+> It monkey patches `Object` so may cause problems using it. But it's a good example what you can do with macros.
+
 ```crystal
 # Lambda your expression.
 λ add do |x, y|
