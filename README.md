@@ -9,7 +9,7 @@ Lambda makes your Crystal functions [uniformed][1].
 
 ```crystal
 # Lambda your expression.
-λ add do |x, y|
+λ def add(x, y)
   x + y
 end
 
@@ -22,7 +22,7 @@ Or more expressive example:
 
 ```crystal
 # just define a lambda
-lambda not do |x| !x end
+lambda def not(x) !x end
 
 # ... and use as you wish
 true.not #=> false
@@ -63,10 +63,10 @@ first_param.my_function x, y, z
 require "lambda"
 ```
 
-Just use `λ` to make the thing uniform.
+Just use `λ` to make the function uniform.
 
 ```crystal
-λ add do |x, y|
+λ def add(x, y)
   x + y
 end
 
@@ -84,6 +84,36 @@ result = add(2, 3).add(4).add(5) #=> 2 + 3 + 4 + 5 = 14
 
 ## Types and Lambda Overloading
 
+You can define type restrictions using the usual syntax.
+
+```crystal
+λ def plus(x : Int32, y : Int32)
+  x + y
+end
+
+λ def plus(first : String, second : String)
+  first + " and " + second
+end
+
+2.plus 2 #=> 4
+"fatih".plus "akin" #=> "fatih and akin"
+
+plus 2, 2 #=> 4
+plus "fatih", "akin" #=> "fatih and akin"
+```
+
+## Block syntax
+
+You can also define lambdas using blocks.
+
+```crystal
+λ add do |x, y|
+  x + y
+end
+puts 2.add 3 #=> 5
+puts add 2, 3 #=> 5
+```
+
 You can define types in parameters using `param_as_Type` pattern.
 
 ```crystal
@@ -92,7 +122,7 @@ You can define types in parameters using `param_as_Type` pattern.
 end
 
 λ plus do |first_as_String, second_as_String|
-  x + " and " + y
+  first + " and " + second
 end
 
 2.plus 2 #=> 4
